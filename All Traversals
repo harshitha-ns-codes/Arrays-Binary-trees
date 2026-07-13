@@ -1,0 +1,55 @@
+class Solution {
+public:
+    void allTraversals(TreeNode* root,
+                       vector<int>& preorder,
+                       vector<int>& inorder,
+                       vector<int>& postorder)
+    {
+        if (root == nullptr)
+            return;
+
+        stack<pair<TreeNode*, int>> st;
+
+        st.push({root, 1});
+
+        while (!st.empty())
+        {
+            pair<TreeNode*, int> it = st.top();
+            st.pop();
+
+            // Preorder
+            if (it.second == 1)
+            {
+                preorder.push_back(it.first->val);
+
+                it.second++;
+                st.push(it);
+
+                if (it.first->left != nullptr)
+                {
+                    st.push({it.first->left, 1});
+                }
+            }
+
+            // Inorder
+            else if (it.second == 2)
+            {
+                inorder.push_back(it.first->val);
+
+                it.second++;
+                st.push(it);
+
+                if (it.first->right != nullptr)
+                {
+                    st.push({it.first->right, 1});
+                }
+            }
+
+            // Postorder
+            else
+            {
+                postorder.push_back(it.first->val);
+            }
+        }
+    }
+};
