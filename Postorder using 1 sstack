@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> post1st(TreeNode* root)
+{
+    vector<int>ans;
+    stack<TreeNode*>st;
+    while(root != nullptr || !st.empty() )
+    {
+        if(root != nullptr)
+        {
+        st.push(root);
+        root = root->left;
+    }
+    else
+    {
+        TreeNode* temp = st.top()->right;
+        if(temp == nullptr)
+        {
+            temp = st.top();
+            st.pop();
+            ans.push_back(temp->val);
+            while(!st.empty() && temp == st.top()->right)
+            {
+                temp = st.top();
+            st.pop();
+            ans.push_back(temp->val);
+
+            }
+
+        }
+        else
+        {
+            root = temp;
+        
+        }
+    }
+}
+   
+    return ans;
+}
