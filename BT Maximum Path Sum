@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int height(TreeNode* root , int &maxi)
+    {
+        if(root == nullptr) return 0;
+
+        int lh = height(root->left , maxi);
+        int rh = height(root->right , maxi);
+        if (lh < 0) lh = 0;
+        if (rh < 0) rh = 0;
+
+        maxi = max(maxi,root->val+lh+rh);
+        return root->val+max(lh,rh);
+    }
+    int maxPathSum(TreeNode* root) 
+    {
+        int maxi=INT_MIN;
+        height(root,maxi);
+        return maxi;
+        
+    }
+};
